@@ -26,7 +26,7 @@ app.get("/tickets/:id", async (req: Request, res: Response) => {
     if (ticket) {
         res.status(200).json(ticket);
     } else {
-        res.status(404).json({ error: "ticket not found" });
+        res.status(404).json({ error: "Ticket not found" });
     }
 });
 app.post("/tickets", async (req: Request, res: Response) => {
@@ -34,7 +34,7 @@ app.post("/tickets", async (req: Request, res: Response) => {
     if (await addTicket(ticket)) {
         res.status(201).json({ message: "successfully created ticket" });
     } else {
-        res.status(500).json({ error: "bad request" });
+        res.status(500).json({ error: "Bad request" });
     }
 });
 
@@ -51,7 +51,7 @@ app.patch("/tickets/:id/assign", async (req: Request, res: Response) => {
     if (await updateTicket(id, { assignee: assignee })) {
         res.status(200).json({ message: "successfully asssigned ticket" });
     } else {
-        res.status(500).json({ error: "bad request" });
+        res.status(500).json({ error: "Bad request" });
     }
 });
 app.delete("/tickets/:id", async (req: Request, res: Response) => {
