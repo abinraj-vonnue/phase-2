@@ -49,7 +49,7 @@ app.patch("/tickets/:id/assign", async (req: Request, res: Response) => {
     const id = req.params.id.toString();
     const assignee = req.body.assignee;
     if (await updateTicket(id, { assignee: assignee })) {
-        res.status(200).json({ message: "successfully asssigned ticket" });
+        res.status(200).json({ message: "successfully assigned ticket" });
     } else {
         res.status(500).json({ error: "Bad request" });
     }
