@@ -8,6 +8,7 @@ import {
     getTicket,
     readData,
     addTicket,
+    updateTicket,
     type Ticket,
 } from "./controllers/ticketManager";
 
@@ -31,6 +32,23 @@ app.post("/tickets", async (req: Request, res: Response) => {
     const ticket = req.body;
     if (await addTicket(ticket)) {
         res.status(201).json({ message: "successfully created ticket" });
+    } else {
+        res.status(500).json({ error: "bad request" });
+    }
+});
+
+app.patch("/tickets/:id/status", async (req: Request, res: Response) => {
+    const id = req.params.id.toString();
+    const status = req.body.status;
+    if (await updateTicket(id, { status: status })) {
+        res.status(200).json({ message: "successfully updated status" });
+    } else res.status(404).json({ error: "Bad request" });
+});
+app.patch("/tickets/:id/assign", async (req: Request, res: Response) => {
+    const id = req.params.id.toString();
+    const assignee = req.body.assignee;
+    if (await updateTicket(id, { assignee: assignee })) {
+        res.status(200).json({ message: "successfully asssigned ticket" });
     } else {
         res.status(500).json({ error: "bad request" });
     }

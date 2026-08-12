@@ -35,3 +35,19 @@ export async function getTicket(id: string) {
     const ticket = data.find((t) => t.id === id);
     return ticket;
 }
+
+export async function updateTicket(
+    id: string,
+    updates: Partial<Ticket>
+): Promise<boolean> {
+    if (!isPartialTicket(updates)) return false;
+
+    const ticket = await getTicket(id);
+    if (!ticket) return false;
+    const data = JSON.parse(await readData());
+    const updatedData: Ticket[] = data.map((ticket: Ticket) =>
+        ticket.id === id ? { ...ticket, ...updates } : ticket
+    );
+    fs.writeFile(path, JSON.stringify(updatedData));
+    return true;
+}
