@@ -51,3 +51,11 @@ export async function updateTicket(
     fs.writeFile(path, JSON.stringify(updatedData));
     return true;
 }
+export async function deleteTicket(id: string): Promise<boolean> {
+    const ticket = await getTicket(id);
+    if (!ticket) return false;
+    const data: Ticket[] = JSON.parse(await readData());
+    const updatedData = data.filter((t) => t.id !== id);
+    fs.writeFile(path, JSON.stringify(updatedData));
+    return true;
+}

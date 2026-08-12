@@ -8,6 +8,7 @@ import {
     getTicket,
     readData,
     addTicket,
+    deleteTicket,
     updateTicket,
     type Ticket,
 } from "./controllers/ticketManager";
@@ -53,5 +54,12 @@ app.patch("/tickets/:id/assign", async (req: Request, res: Response) => {
         res.status(500).json({ error: "bad request" });
     }
 });
-
+app.delete("/tickets/:id", async (req: Request, res: Response) => {
+    const id = req.params.id.toString();
+    if (await deleteTicket(id)) {
+        res.status(200).json({ message: "successfully deleted ticket" });
+    } else {
+        res.status(500).json({ error: "Ticket not found" });
+    }
+});
 export default app;
