@@ -4,7 +4,12 @@ import express, {
     type Request,
     type Response,
 } from "express";
-import { getTicket, readData, type Ticket } from "./controllers/ticketManager";
+import {
+    getTicket,
+    readData,
+    addTicket,
+    type Ticket,
+} from "./controllers/ticketManager";
 
 const app: Express = express();
 app.use(express.json());
@@ -20,6 +25,14 @@ app.get("/tickets/:id", async (req: Request, res: Response) => {
         res.status(200).json(ticket);
     } else {
         res.status(404).json({ error: "ticket not found" });
+    }
+});
+app.post("/tickets", async (req: Request, res: Response) => {
+    const ticket = req.body;
+    if (await addTicket(ticket)) {
+        res.status(201).json({ message: "successfully created ticket" });
+    } else {
+        res.status(500).json({ error: "bad request" });
     }
 });
 
