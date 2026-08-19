@@ -62,7 +62,7 @@ export async function getTickets(req: Request, res: Response) {
         },
     });
     const totalPages = Math.ceil(total / pageSize);
-    res.json({
+    res.status(200).json({
         data: tickets,
         meta: {
             page,

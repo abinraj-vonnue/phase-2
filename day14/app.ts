@@ -25,7 +25,7 @@ app.get("/tickets/:id", async (req: Request, res: Response) => {
         if (ticket) {
             return res.status(200).json(ticket);
         }
-        return res.status(404).json({ error: "ticket not found" });
+        return res.status(404).json({ error: "Ticket not found" });
     } catch {
         return res.status(500).json({ error: "Internal Server error" });
     }
@@ -51,7 +51,7 @@ app.delete("/tickets/:id", async (req: Request, res: Response) => {
         if (await deleteTicket(id)) {
             return res.sendStatus(204);
         }
-        return res.status(404).json({ error: "ticket not found" });
+        return res.status(404).json({ error: "Ticket not found" });
     } catch {
         return res.status(500).json({ error: "Internal Server error" });
     }
@@ -67,6 +67,7 @@ app.patch("/tickets/:id", async (req: Request, res: Response) => {
     }
     try {
         const patchedTicket = await updateTicket(id, updates);
+        console.log("patchedTicket", patchedTicket);
         if (patchedTicket) {
             return res.status(200).json(patchedTicket);
         }
